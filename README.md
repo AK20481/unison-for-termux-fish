@@ -67,7 +67,7 @@ set -gx UNISON_VERSION 2.53.7
 mkdir -p $HOME/tmp
 curl -L https://github.com/bcpierce00/unison/archive/refs/tags/v{$UNISON_VERSION}.tar.gz -o "$HOME/tmp/unison.tar.gz"
 tar xzf "$HOME/tmp/unison.tar.gz" -C "$HOME/tmp"
-cd "$HOME/tmp/unison-${UNISON_VERSION}"
+cd "$HOME/tmp/unison-{$UNISON_VERSION}"
 
 # Build and install Unison
 # NATIVE=false tells the build system to use the OCaml bytecode compiler,
