@@ -10,9 +10,8 @@ Largely based on [Compiler Unison dans Termux](https://lunixite.nappey.org/compi
 ## Prerequisites
 
 Install required build tools:
-```sh
-pkg update -y
-pkg install -y binutils build-essential clang make git curl unzip libandroid-shmem
+```fish
+pkg upgrade && pkg install binutils build-essential clang make git curl unzip libandroid-shmem
 ```
 
 If running in a simulator (such as waydroid), you might need `ndk-multilib` as well.
@@ -33,20 +32,19 @@ Credits:
 - [terminatorbs](https://github.com/terminatorbs): noted issues with api version and missing dependency
 - [engdyn](https://github.com/engdyn): noted issues with api versions above 28 and problematic ocaml versions
 
-```sh
-OCAML_VERSION=5.3.0
-TARGET="$(uname -m)-unknown-linux-android"
-API=28
+```fish
+set -gx OCAML_VERSION 5.3.0
+set -gx TARGET "$(uname -m)-unknown-linux-android"
+set -gx API 28
 
 mkdir -p $HOME/tmp
-curl -L https://github.com/ocaml/ocaml/archive/refs/tags/${OCAML_VERSION}.tar.gz \
-  -o "$HOME/tmp/ocaml.tar.gz"
+curl -L https://github.com/ocaml/ocaml/archive/refs/tags/{$OCAML_VERSION}.tar.gz -o "$HOME/tmp/ocaml.tar.gz"
 tar xzf "$HOME/tmp/ocaml.tar.gz" -C "$HOME/tmp"
-cd "$HOME/tmp/ocaml-${OCAML_VERSION}"
+cd "$HOME/tmp/ocaml-{$OCAML_VERSION}"
 
 # Configure OCaml for Termux/Android
 # Termux provides the $PREFIX variable.
-./configure --prefix=$PREFIX --disable-warn-error --without-afl CC="clang --target=${TARGET}${API}" LDFLAGS="-landroid-shmem"
+./configure --prefix=$PREFIX --disable-warn-error --without-afl CC="clang --target=$TARGET$API" LDFLAGS="-landroid-shmem"
 
 # Build and install OCaml
 make world
@@ -54,7 +52,7 @@ make install
 ```
 
 Check whether ocaml was correctly installed:
-```sh
+```fish
 ocaml --version
 ocamlc --version
 ```
@@ -63,12 +61,11 @@ ocamlc --version
 
 Now that OCaml is installed, you can compile Unison. This guide uses Unison 2.53.7.
 
-```sh
-UNISON_VERSION=2.53.7
+```fish
+set -gx UNISON_VERSION 2.53.7
 
 mkdir -p $HOME/tmp
-curl -L https://github.com/bcpierce00/unison/archive/refs/tags/v${UNISON_VERSION}.tar.gz \
-  -o "$HOME/tmp/unison.tar.gz"
+curl -L https://github.com/bcpierce00/unison/archive/refs/tags/v{$UNISON_VERSION}.tar.gz -o "$HOME/tmp/unison.tar.gz"
 tar xzf "$HOME/tmp/unison.tar.gz" -C "$HOME/tmp"
 cd "$HOME/tmp/unison-${UNISON_VERSION}"
 
@@ -82,7 +79,7 @@ make NATIVE=false install
 Unison should be installed now!
 
 You can test it by checking the version:
-```sh
+```fish
 unison -version
 ```
 
@@ -96,20 +93,20 @@ On a rooted device, there are ways to use Unison without these flags.
 ## Cleanup
 
 Remove temporary build files:
-```sh
+```fish
 cd
-rm -rf $HOME/tmp/ocaml-${OCAML_VERSION} $HOME/tmp/unison-${UNISON_VERSION} $HOME/tmp/*.tar.gz
+rm -rf $HOME/tmp/ocaml-{$OCAML_VERSION} $HOME/tmp/unison-{$UNISON_VERSION} $HOME/tmp/*.tar.gz
 ```
 
 ## Uninstall
 
 OCaml:
-```sh
+```fish
 rm -f $PREFIX/lib/ocaml*
 rm -rf $PREFIX/lib/ocaml $PREFIX/share/man/man1/ocaml*
 ```
 
 Unison:
-```sh
+```fish
 rm -f $PREFIX/bin/unison* $PREFIX/share/man/man1/unison.1
 ```
