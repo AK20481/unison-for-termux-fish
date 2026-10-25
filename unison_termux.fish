@@ -1,3 +1,5 @@
+#!/usr/bin/env -S fish --no-config
+
 # termux-unison
 # starts with asking user
 read -l -P "would you like to install Unison? [y/n] " response
