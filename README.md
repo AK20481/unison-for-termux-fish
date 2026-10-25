@@ -116,7 +116,7 @@ rm -f $PREFIX/bin/unison* $PREFIX/share/man/man1/unison.1
 # the script
 
 ```fish
-#!/usr/bin/env fish
+#!/usr/bin/env fish --no-config
 
 # Exit on any error
 function on_error --on-event fish_cancel
