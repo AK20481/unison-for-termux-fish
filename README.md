@@ -7,4 +7,4 @@ chmod +x unison_termux.fish
 ./unison_termux.fish
 ```
 # or alternatively
-# curl -sSL https://raw.githubusercontent.com/AK20481/unison_termux.fish/refs/heads/main/unison_termux.fish | fish
+# curl -sSL https://raw.githubusercontent.com/AK20481/unison_termux.fish/refs/heads/main/unison_termux.fish | fish --no-config
