@@ -1,17 +1,5 @@
 #!/usr/bin/env -S fish --no-config
 
-# termux-unison
-# starts with asking user
-read -l -P "would you like to install Unison? [y/n] " response
-if not string match -ri '^y(es)?$' -- "$response"
-    echo "Aborted.";exit 0
-end
-echo "Continuing script..."
-function on_error --on-event fish_cancel
-    echo "Aborted."
-    exit 1
-end
-
 set -gx OCAML_VERSION "5.3.0"
 set -gx UNISON_VERSION "2.53.7"
 set -gx API 28
